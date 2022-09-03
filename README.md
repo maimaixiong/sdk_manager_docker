@@ -18,7 +18,7 @@ NVIDIA released official Docker image(<https://docs.nvidia.com/sdk-manager/docke
 
 Please download the package of NVIDIA SDK Manager from <https://developer.nvidia.com/nvidia-sdk-manager>.  
 And, please put the package of NVIDIA SDK Manager in the same directory as the Dockerfile.  
-This time, I used `sdkmanager_1.8.0-10363_amd64.deb`.
+This time, I used `sdkmanager_1.8.1-10392_amd64.deb`.
 
 ### Build Docker image
 
@@ -43,7 +43,11 @@ docker build --build-arg SDK_MANAGER_VERSION=1.8.0-10363 --build-arg GID=$(id -g
 Please launch NVIDIA SDK Manager by the following command.
 
 ```
-sdkmanager
+sdkmanager --cli install --logintype devzone --product Jetson --version 4.5.1 --targetos Linux --host --target JETSON_TX2_NX --flash all --additionalsdk 'DeepStream 5.1'
+
+
+sdkmanager --cli install --logintype devzone --product Jetson --target JETSON_TX2_NX --targetos Linux --version 4.5.1 --select 'Jetson OS' --deselect 'Jetson SDK Components' --flash all --license accept --staylogin true --datacollection enable --exitonfinish
+
 ```
 
 Please refer to <https://docs.nvidia.com/sdk-manager/install-with-sdkm-jetson/index.html>.

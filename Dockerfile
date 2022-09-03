@@ -1,7 +1,7 @@
 FROM ubuntu:18.04
 
 # ARGUMENTS
-ARG SDK_MANAGER_VERSION=1.8.0-10363
+ARG SDK_MANAGER_VERSION=1.8.1-10392
 ARG SDK_MANAGER_DEB=sdkmanager_${SDK_MANAGER_VERSION}_amd64.deb
 ARG GID=1000
 ARG UID=1000
@@ -59,12 +59,12 @@ RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selectio
 
 # install SDK Manager
 USER jetpack
-COPY --chown=jetpack:jetpack ${SDK_MANAGER_DEB} /home/${USERNAME}/
+COPY --chown=jetpack:jetpack ./${SDK_MANAGER_DEB} /home/${USERNAME}/
 WORKDIR /home/${USERNAME}
 RUN sudo apt-get install -f /home/${USERNAME}/${SDK_MANAGER_DEB}
 RUN rm /home/${USERNAME}/${SDK_MANAGER_DEB}
 
 # configure QEMU to fix https://forums.developer.nvidia.com/t/nvidia-sdk-manager-on-docker-container/76156/18
 # And, I refered to https://github.com/MiroPsota/sdkmanagerGUI_docker
-COPY --chown=jetpack:jetpack configure_qemu.sh /home/${USERNAME}/
+COPY --chown=jetpack:jetpack ./configure_qemu.sh /home/${USERNAME}/
 ENTRYPOINT ["/bin/bash", "-c", "/home/jetpack/configure_qemu.sh"]
