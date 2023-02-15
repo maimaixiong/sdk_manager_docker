@@ -45,6 +45,8 @@ RUN yes | unminimize && \
         chromium-browser \
         qemu-user-static \
         binfmt-support \
+        tmux \
+        vim \
         && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
